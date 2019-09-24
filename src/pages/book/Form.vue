@@ -91,13 +91,16 @@
           <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm"/>
         </div>
       </q-form>
-      <pre>{{book}}</pre>
-      <pre>{{authors}}</pre>
+      <pre v-if="false">{{book}}</pre>
+      <pre v-if="false">{{authors}}</pre>
     </div>
+    <pre>{{this.testVuex}}</pre>
   </q-page>
 </template>
 
 <script>
+import { create } from '../../services/books'
+
 export default {
   // name: 'PageName',
   data () {
@@ -110,24 +113,25 @@ export default {
         price: '',
         is_read: false,
         owner: 'Jean',
-        origin: 'Amazon',
+        origin: 'Amazo',
         ebook: true
       },
       authors: [],
       options: []
     }
   },
+  computed: {
+    testVuex: function () {
+      return this.$store.state.jean.book
+    }
+  },
   mounted () {
     this.loadAuthors()
+    // console.log(this.$store)
   },
   methods: {
     postBook: function () {
-      let baseURI = '/api/books'
-      this.$axios.post(baseURI, this.book)
-        .then((result) => {
-          console.log(result)
-          // this.book = result.data
-        })
+      create(this.$axios, this.book)
     },
     loadAuthors () {
       this.$axios.get('/api/authors')
@@ -139,6 +143,7 @@ export default {
         })
     },
     onReset () {
+      this.$store.commit('jean/someMutation', this.book)
       this.book = {}
     },
     filterFn (val, update) {
