@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.9.5",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "jsonapi-vuex": "^1.2.1",
     "quasar": "^1.13.2",
     "vue-i18n": "^7.3.3",
